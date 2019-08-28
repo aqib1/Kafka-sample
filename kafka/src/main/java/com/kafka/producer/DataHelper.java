@@ -1,11 +1,12 @@
 package com.kafka.producer;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class DataHelper {
 
-	private List<String> data = List.of(UUID.randomUUID().toString() + " 0 " + " 0 " + " 0 " + true,
+	private List<String> data = Arrays.asList(UUID.randomUUID().toString() + " 0 " + " 0 " + " 0 " + true,
 			UUID.randomUUID().toString() + " 0 " + " 0 " + " 0 " + true,
 			UUID.randomUUID().toString() + " 0 " + " 0 " + " 0 " + true,
 			UUID.randomUUID().toString() + " 0 " + " 0 " + " 0 " + true,

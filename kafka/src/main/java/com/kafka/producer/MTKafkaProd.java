@@ -17,7 +17,7 @@ public class MTKafkaProd {
 	private static String TOPIC_NAME = "BookingTopic";
 	private static final int MAX_NUMBER_OF_MESSAGES = 50000;
 	private static final int BROKER_PORT_NUMBER = 6667;
-	private static final String BROKER_DOMAIN_NAME = "sandbox-hdp.hortonworks.com:";
+	private static final String BROKER_DOMAIN_NAME = "sandbox-hdp.hortonworks.com";
 	private static final String CLIENT_ID = "MTKafkaProd";
 
 	public MTKafkaProd init(String topic) {
@@ -27,7 +27,7 @@ public class MTKafkaProd {
 	}
 
 	private Properties getKafkaProperties() {
-		var properties = new Properties();
+		Properties properties = new Properties();
 		properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_DOMAIN_NAME + ":" + BROKER_PORT_NUMBER);
 		properties.put(ProducerConfig.CLIENT_ID_CONFIG, CLIENT_ID);
 		properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -54,11 +54,11 @@ public class MTKafkaProd {
 	public MTKafkaProd submitRunner(int runner) throws InterruptedException {
 		ExecutorService executorService = Executors.newFixedThreadPool(runner);
 
-		for (var x = 0; x < runner; x++) {
+		for (int x = 0; x < runner; x++) {
 			executorService.execute(() -> {
 				Random random = new Random();
 				KafkaProducer<String, String> prod = createProducer();
-				for (var y = 0; y < MAX_NUMBER_OF_MESSAGES; y++) {
+				for (int y = 0; y < MAX_NUMBER_OF_MESSAGES; y++) {
 					try {
 						prod.send(
 								new ProducerRecord<String, String>(TOPIC_NAME,
@@ -68,6 +68,7 @@ public class MTKafkaProd {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					
 				}
 				prod.close();
 			});
